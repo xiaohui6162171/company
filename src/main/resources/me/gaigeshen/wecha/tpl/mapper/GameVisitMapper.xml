@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.gaigeshen.wecha.tpl.mapper.GameVisitMapper">
+
+	<resultMap type="me.gaigeshen.wecha.tpl.model.vote.GameVisit"
+		id="BaseResultMap">
+     <id column="id" property="id"/>
+     <result column="openid" property="openid"/>
+     <result column="createtime" property="createtime"/>
+	</resultMap>
+	
+	<insert id="insetGameVisit" parameterType="me.gaigeshen.wecha.tpl.model.vote.GameVisit">
+	insert into gamevisit(openid,createtime) values(#{openid},#{createtime})
+	</insert>
+	
+	<select id="getVisitCount" resultType="int">
+	select count(*) from gamevisit
+	</select>
+	
+</mapper>

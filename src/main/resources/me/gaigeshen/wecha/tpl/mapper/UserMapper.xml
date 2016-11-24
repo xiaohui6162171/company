@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.gaigeshen.wecha.tpl.mapper.UserMapper">
+	<resultMap type="me.gaigeshen.wecha.tpl.model.vote.User" id="BaseResultTSConfigMap">
+		<result column="user_id" property="userId" />
+		<result column="user_openid" property="userOpenid" />
+		<result column="user_name" property="userName" />
+		<result column="user_password" property="userPassword" />
+		<result column="user_moblie" property="userMoblie" />
+		<result column="user_realname" property="userRealname" />
+		<result column="user_birthday" property="userBirthday" />
+		<result column="user_sex" property="userSex" />
+		<result column="user_current" property="userCurrent" />
+		<result column="user_profile" property="userProfile" />
+		<result column="user_background" property="userBackground" />
+		<result column="user_address" property="userAddress" />
+		<result column="user_university" property="userUniversity" />
+		<result column="user_achievement" property="userAchievement" />
+		<result column="user_introduction" property="userIntroduction" />
+		<result column="user_idea" property="userIdea" />
+		<result column="user_rank" property="userRank" />
+		<result column="user_authority" property="userAuthority" />
+		<result column="user_one" property="userOne" />
+		<result column="user_createtime" property="userCreatetime" />
+		<result column="user_updatetime" property="userUpdatetime" />
+		<result column="user_uploadzip" property="userUploadzip" />
+		<result column="stylist_state" property="stylistState" />
+		<result column="user_sealstate" property="userSealstate" />
+		<result column="user_bannedstate" property="userBannedstate" />
+		<result column="user_styliststate" property="userStyliststate" />
+		<result column="designer_sort" property ="designerSort"/>
+		<!-- 分类 -->
+		<result column="sort_total" property="total" />
+		<!-- 竟稿 -->
+		<result column="requirement_id" property="id"/>
+		<result column="user_vedio" property ="video" />
+	</resultMap>
+	
+	<select id="findUserInfoByPhone" resultMap="BaseResultTSConfigMap">
+		SELECT * FROM USERS WHERE
+		USER_MOBLIE = #{userMoblie}
+	</select>
+	
+	<select id="findUserInfoById" parameterType="int" resultMap="BaseResultTSConfigMap">
+	    SELECT * FROM USERS WHERE USER_ID=#{user_id}
+	</select>
+	
+	<update id="upDateUserByUserId" parameterType="int">
+	    update users set user_authority=#{userAuthority} where user_id=#{user_id}
+	</update>
+
+    <!-- 登录 -->
+	<select id="Login" resultMap="BaseResultTSConfigMap">
+		SELECT * FROM USERS WHERE USER_MOBLIE = #{userMoblie} and USER_PASSWORD = #{userPassword}
+	</select>
+
+	<!-- 注册 -->
+	<insert id="Register" parameterType="me.gaigeshen.wecha.tpl.model.vote.User" useGeneratedKeys="true" keyProperty="userId">
+		INSERT INTO USERS
+		(USER_MOBLIE,USER_PASSWORD,USER_AUTHORITY,USER_SEALSTATE,USER_BANNEDSTATE,USER_STYLISTSTATE,USER_CREATETIME,STYLIST_STATE,user_openid)
+		VALUES
+		(#{userMoblie},#{userPassword},#{userAuthority},#{userSealstate},#{userBannedstate},#{userStyliststate},now(),#{stylistState},#{userOpenid});
+	</insert>
+
+	<!-- 查询用户名是否存在 -->
+	<select id="checkUserName" resultMap="BaseResultTSConfigMap">
+		SELECT * FROM USERS WHERE
+		USER_MOBLIE = #{userMoblie}
+	</select>
+
+</mapper>

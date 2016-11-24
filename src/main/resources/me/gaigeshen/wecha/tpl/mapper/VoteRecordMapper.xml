@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.gaigeshen.wecha.tpl.mapper.VoteRecordMapper">
+	<resultMap type="me.gaigeshen.wecha.tpl.model.vote.VoteRecord"
+		id="BaseResultMap">
+		<id column="id" property="id" />
+		<result column="openid" property="openid"/> 
+		<result column="gamework_id" property="gamework_id"/> 
+		<result column="createtime" property="createtime"/> 
+	</resultMap>
+	
+	<insert id="insertRecord" parameterType="me.gaigeshen.wecha.tpl.model.vote.VoteRecord">
+	insert into gamevote_record(openid,gamework_id,createtime) 
+	values(#{openid},#{gamework_id},#{createtime})
+	</insert>
+	
+	<select id="getRecordByOpenid" resultMap="BaseResultMap" parameterType="me.gaigeshen.wecha.tpl.model.vote.VoteRecord">
+	select *  from gamevote_record where openid=#{openid} and gamework_id=#{gamework_id} and createtime=curdate();
+	</select>
+	
+	<select id="getRecordCount" resultType="int">
+	select count(*) from gamevote_record
+	</select>
+
+
+</mapper>

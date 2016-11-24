@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.gaigeshen.wecha.tpl.mapper.GameSortsMapper">
+    <resultMap type="me.gaigeshen.wecha.tpl.model.vote.GameSorts"
+		id="BaseResultMap">
+		<id column="id" property="id" />
+		<result column="sort_name" property="sort_name" />
+		<result column="state" property="state" />
+		<result column="require_id" property="require_id" />
+	</resultMap>
+	
+	<insert id="addgamesort" parameterType="me.gaigeshen.wecha.tpl.model.vote.GameSorts">
+	insert into gamesorts(sort_name,state,require_id) values(#{sort_name},#{state},#{require_id})
+	
+	</insert>
+	
+	<select id="getGameSorts" resultMap="BaseResultMap" parameterType="int">
+	select * from gamesorts where state=#{state}
+	</select>
+	
+	<select id="getGameSortById" resultMap="BaseResultMap" parameterType="int">
+	select * from gamesorts where id=#{id}
+	</select>
+	
+	<select id="getgamesortByRequireId" resultMap="BaseResultMap" parameterType="int">
+	select * from gamesorts where require_id=#{require_id}
+	</select>
+	
+	<delete id="deletesort" parameterType="int">
+	delete from gamesorts where require_id=#{require_id}
+	</delete>
+
+</mapper>

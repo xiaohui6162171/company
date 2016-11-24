@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.gaigeshen.wecha.tpl.mapper.GameWorksDetailMapper">
+	<resultMap type="me.gaigeshen.wecha.tpl.model.vote.GameWorksDetail"
+		id="BaseResultMap">
+		<id column="id" property="id" />
+		<result column="gameworks_id" property="gameworks_id" />
+		<result column="work_url" property="work_url" />
+		<result column="workthum_url" property="workthum_url" />
+		<result column="state" property="state" />
+	</resultMap>
+
+	<insert id="insertworksdetail" parameterType="me.gaigeshen.wecha.tpl.model.vote.GameWorksDetail">
+		insert into gameworksdetail(gameworks_id,work_url,workthum_url,state)
+		values(#{gameworks_id},#{work_url},#{workthum_url},#{state})
+	</insert>
+	
+	
+	
+	
+	<select id="getworksdetailsById" parameterType="int"
+	resultMap="BaseResultMap" >
+	    select * from gameworksdetail where gameworks_id=#{gameworks_id}
+	</select>
+
+
+
+</mapper>

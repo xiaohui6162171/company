@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.gaigeshen.wecha.tpl.mapper.GameWorksMapper">
+	<resultMap type="me.gaigeshen.wecha.tpl.model.vote.GameWorks"
+		id="BaseResultMap">
+		<id column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="work_num" property="work_num"/>
+		<result column="username" property="username" />
+		<result column="main_photo" property="main_photo" />
+		<result column="mainthum_photo" property="mainthum_photo" />
+		<result column="works_name" property="works_name" />
+		<result column="sort_id" property="sort_id" />
+		<result column="works_introduction" property="works_introduction" />
+		<result column="vote_count" property="vote_count" />
+		<result column="createtime" property="createtime" />
+		<result column="state" property="state" />
+		<result column="email" property="email" />
+	</resultMap>
+
+
+	<insert id="insert_GameWorks" parameterType="me.gaigeshen.wecha.tpl.model.vote.GameWorks" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		gameworks(userid,work_num,username,main_photo,mainthum_photo,works_name,sort_id,works_introduction,vote_count,createtime,state,email)
+		values(#{userid},#{work_num},#{username},#{main_photo},#{mainthum_photo},#{works_name},#{sort_id},#{works_introduction},#{vote_count},#{createtime},#{state},#{email})
+	</insert>
+
+	<select id="getworks" resultMap="BaseResultMap"
+		parameterType="me.gaigeshen.wecha.tpl.model.vote.GameWorks">
+		select * from gameworks where 1=1
+		<if test="sort_id != null">
+			and sort_id=#{sort_id}
+		</if>
+		<if test="state != null">
+			and state=#{state}
+		</if>
+		order by createtime 
+	</select>
+	
+	<select id="getallwork" resultMap="BaseResultMap"
+		parameterType="me.gaigeshen.wecha.tpl.model.vote.GameWorks">
+		select * from gameworks order by vote_count desc
+	</select>
+
+	<select id="get_gameworksById" parameterType="int"
+		resultMap="BaseResultMap">
+		select * from gameworks where id=#{id}
+	</select>
+	
+	<update id="update_gameworks" parameterType="me.gaigeshen.wecha.tpl.model.vote.GameWorks">
+	    update gameworks set userid=#{userid},
+	    work_num=#{work_num},
+	    username=#{username},
+	    main_photo=#{main_photo},
+	    mainthum_photo=#{mainthum_photo},
+	    works_name=#{works_name},
+	    sort_id=#{sort_id},
+	    works_introduction=#{works_introduction},
+	    vote_count=#{vote_count},
+	    createtime=#{createtime},
+	    state=#{state},
+	    email=#{email}
+	    where id=#{id}
+	</update>
+	
+	<select id="getcountBySorId" parameterType="int" resultType="int">
+	select count(*) from gameworks where sort_id=#{sort_id}
+	</select>
+	
+	<select id="getworksCount" resultType="int">
+	select count(*) from gameworks
+	</select>
+
+</mapper>
